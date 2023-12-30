@@ -17,7 +17,7 @@
 #   - {level} to get the player's level
 #   - {tps} to get the ticks per second
 #   - {motd} to get the message of the day
-#   - {money} to get the player's money
+#   - {money} to get the player's money # Disabled for now!!
 #   - {player} to get the player's name
 
 #  Default Config:
@@ -30,7 +30,7 @@
 hud-message: "&bBlazinHud &aby &6BlazeTheDev&r {line} &c{online_players}&f/&c{max_players}"
 
 # The below config turns on the ability to use {money} variable in your hud message (OPTIONS: on and off)
-economy: "off"
+economy: "off" # Dont turn on economy support isnt ready yet!
 
 # The below config turns on or off multi-world support (NOTE: the 2 options here are on and off)
 multi-world: "off"
