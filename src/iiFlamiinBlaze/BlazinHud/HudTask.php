@@ -21,7 +21,7 @@ declare(strict_types=1);
 
 namespace iiFlamiinBlaze\BlazinHud;
 
-use pocketmine\Player;
+use pocketmine\player\Player;
 use pocketmine\scheduler\Task;
 
 class HudTask extends Task{
@@ -33,7 +33,7 @@ class HudTask extends Task{
 		$this->player = $player;
 	}
 
-	public function onRun(int $tick) : void{
+	public function onRun() : void{
 		$hud = BlazinHud::getInstance()->getConfig()->get("hud-message");
 		if(isset(BlazinHud::getInstance()->hud[$this->player->getName()])){
 			$hud = str_replace([
@@ -44,7 +44,7 @@ class HudTask extends Task{
 				"{x}",
 				"{y}",
 				"{z}",
-				"{level}",
+				"{world}",
 				"{tps}",
 				"{motd}",
 				"{money}",
@@ -54,13 +54,13 @@ class HudTask extends Task{
 				BlazinHud::getInstance()->getServer()->getMaxPlayers(),
 				count(BlazinHud::getInstance()->getServer()->getOnlinePlayers()),
 				"§",
-				(string)round($this->player->getX()),
-				(string)round($this->player->getY()),
-				(string)round($this->player->getZ()),
-				$this->player->getLevel()->getName(),
+				(string)round($this->player->getPosition()->getX()),
+				(string)round($this->player->getPosition()->getY()),
+				(string)round($this->player->getPosition()->getZ()),
+				$this->player->getWorld()->getFolderName(),
 				BlazinHud::getInstance()->getServer()->getTicksPerSecond(),
 				BlazinHud::getInstance()->getServer()->getMotd(),
-				BlazinHud::getInstance()->getServer()->getPluginManager()->getPlugin("EconomyAPI")->getInstance()->myMoney($this->player),
+				BlazinHud::getInstance()->getServer()->getPluginManager()->getPlugin("EconomyPE")->getInstance()->getMoneyPlayer($this->player),
 				$this->player->getName()
 			], $hud);
 			$this->player->sendPopup($hud);
