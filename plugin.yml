@@ -3,7 +3,7 @@ author: iiFlamiinBlaze
 version: 1.0.5
 description: An advanced custom hud plugin
 main: iiFlamiinBlaze\BlazinHud\BlazinHud
-api: 3.0.0
+api: 5.0.0
 commands:
  blazinhud:
   description: BlazinHud config management command
