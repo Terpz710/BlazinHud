@@ -14,7 +14,7 @@
 #   - {x} to get the player's x position
 #   - {y} to get the player's y position
 #   - {z} to get the player's z position
-#   - {level} to get the player's level
+#   - {world} to get the player's world
 #   - {tps} to get the ticks per second
 #   - {motd} to get the message of the day
 #   - {money} to get the player's money # Disabled for now!!
