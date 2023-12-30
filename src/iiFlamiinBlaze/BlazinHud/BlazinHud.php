@@ -77,7 +77,7 @@ class BlazinHud extends PluginBase implements Listener{
 
 	protected function economyCheck() : bool{
 		if($this->getConfig()->get("economy") === "on"){
-			if($this->getServer()->getPluginManager()->getPlugin("EconomyPE") === null){
+			if($this->getServer()->getPluginManager()->getPlugin("EconomyPE") !== null){
 				$this->getServer()->getPluginManager()->disablePlugin($this);
 				$this->getLogger()->error(TextFormat::RED . "Plugin Disabled! Please turn off economy support in the config or enable/install EconomyPE");
 				return false;
