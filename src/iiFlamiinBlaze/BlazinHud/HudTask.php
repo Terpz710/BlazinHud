@@ -60,7 +60,7 @@ class HudTask extends Task{
 				$this->player->getWorld()->getFolderName(),
 				BlazinHud::getInstance()->getServer()->getTicksPerSecond(),
 				BlazinHud::getInstance()->getServer()->getMotd(),
-				BlazinHud::getInstance()->getServer()->getPluginManager()->getPlugin("EconomyPE")->getInstance()->getMoneyPlayer($this->player),
+				BlazinHud::getInstance()->getServer()->getPluginManager()->getPlugin("EconomyPE")->getMoneyPlayer($this->player),
 				$this->player->getName()
 			], $hud);
 			$this->player->sendPopup($hud);
