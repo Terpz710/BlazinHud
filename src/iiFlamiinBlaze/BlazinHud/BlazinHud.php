@@ -24,16 +24,16 @@ namespace iiFlamiinBlaze\BlazinHud;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\entity\Entity;
-use pocketmine\event\entity\EntityLevelChangeEvent;
+use pocketmine\event\entity\EntityTeleportEvent;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerJoinEvent;
-use pocketmine\Player;
+use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat;
 
 class BlazinHud extends PluginBase implements Listener{
 
-	const VERSION = "v1.0.5";
+	const VERSION = "v1.0.5"; //will forever remain on "v1.0.5"
 	const PREFIX = TextFormat::AQUA . "BlazinHud" . TextFormat::GOLD . " > ";
 
 	/** @var self $instance */
@@ -55,14 +55,14 @@ class BlazinHud extends PluginBase implements Listener{
 		$this->hud[$event->getPlayer()->getName()] = true;
 	}
 
-	public function onLevelChange(EntityLevelChangeEvent $event) : void{
+	public function onLevelChange(EntityTeleportEvent $event) : void{
 		$this->multiWorldCheck($event->getEntity());
 	}
 
 	protected function multiWorldCheck(Entity $entity) : bool{
 		if(!$entity instanceof Player) return false;
 		if($this->getConfig()->get("multi-world") === "on"){
-			if(in_array($entity->getLevel()->getName(), $this->getConfig()->get("worlds"))){
+			if(in_array($entity->getWorld()->getFolderName(), $this->getConfig()->get("worlds"))){
 				$this->getScheduler()->scheduleRepeatingTask(new HudTask($entity), 30);
 			}else{
 				$entity->sendMessage(self::PREFIX . TextFormat::RED . "You are not in the right world for your hud to appear");
@@ -77,9 +77,9 @@ class BlazinHud extends PluginBase implements Listener{
 
 	protected function economyCheck() : bool{
 		if($this->getConfig()->get("economy") === "on"){
-			if($this->getServer()->getPluginManager()->getPlugin("EconomyAPI") === null){
+			if($this->getServer()->getPluginManager()->getPlugin("EconomyPE") === null){
 				$this->getServer()->getPluginManager()->disablePlugin($this);
-				$this->getLogger()->error(TextFormat::RED . "Plugin Disabled! Please turn off economy support in the config or enable/install EconomyAPI");
+				$this->getLogger()->error(TextFormat::RED . "Plugin Disabled! Please turn off economy support in the config or enable/install EconomyPE");
 				return false;
 			}
 		}elseif($this->getConfig()->get("economy") === "off") return false;
@@ -103,9 +103,9 @@ class BlazinHud extends PluginBase implements Listener{
 			switch($args[0]){
 				case "info":
 					foreach([TextFormat::DARK_GRAY . "-=========" . TextFormat::GOLD . "BlazinHud " . self::VERSION . TextFormat::DARK_GRAY . "=========-",
-								TextFormat::GREEN . "Author: " . TextFormat::AQUA . "BlazeTheDev",
-								TextFormat::GREEN . "GitHub: " . TextFormat::AQUA . "https://github.com/iiFlamiinBlaze",
-								TextFormat::GREEN . "Support: " . TextFormat::AQUA . "https://discord.gg/znEsFsG",
+								TextFormat::GREEN . "Authors: " . TextFormat::AQUA . "BlazeTheDev, Terpz710",
+								TextFormat::GREEN . "GitHub: " . TextFormat::AQUA . "https://github.com/Terpz710",
+								TextFormat::GREEN . "Support: " . TextFormat::AQUA . "Continued by Terpz710",
 								TextFormat::GREEN . "Description: " . TextFormat::AQUA . "Allows you to customize a message that will pop up above your hotbar",
 								TextFormat::DARK_GRAY . "-===============================-"] as $msg) $sender->sendMessage($msg);
 
